@@ -15,3 +15,5 @@ What react acutally does:
     Manages component States
 
 Whereas, Anguler is framework which includes everything like http client, routing, state handling, forms, CLI, Templates
+------------------------
+

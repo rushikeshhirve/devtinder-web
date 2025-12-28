@@ -16,4 +16,12 @@ What react acutally does:
 
 Whereas, Anguler is framework which includes everything like http client, routing, state handling, forms, CLI, Templates
 ------------------------
+CORS ? what is Redux ?
+Redux : Create store(configureStore) => Provider => create the slice(createSlice) => add the reducers in store => dispatch to use action => useSelector to get the value
+------------------------
+{withCredentials: true} tells the browser:
 
+“Include cookies (and other credentials) in this HTTP request,
+and accept cookies from the response.”
+
+Without it, the browser will not send cookies for cross-origin requests.

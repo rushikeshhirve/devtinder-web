@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { BASE_URL } from "../utils/constants"
 import axios from "axios"
 import { removeUser } from "../utils/userSlice"
+import { removeFeed } from "../utils/feedSlice"
+import { removeConnection } from "../utils/connectionSlice"
+import { removeRequest } from "../utils/requestSlice"
 
 const Navbar = () => {
   const user = useSelector((store) => store.user)
@@ -19,6 +22,9 @@ const Navbar = () => {
         }
       );
       dispatch(removeUser());
+      dispatch(removeFeed())
+      dispatch(removeConnection())
+      dispatch(removeRequest())
       navigate("/login");
     } catch (error) {
       console.error("[logoutHandler] Error while logout", error);
@@ -49,7 +55,17 @@ const Navbar = () => {
                 <span className="badge">New</span>
               </Link>
             </li>
-            <li><a>Settings</a></li>
+            <li>
+              <Link to="/connections">
+                Connections
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/requests">
+                Requests
+              </Link>
+            </li>
             <li>
               <a onClick={logoutHandler}>Logout</a>
             </li>

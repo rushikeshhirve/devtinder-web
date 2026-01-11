@@ -8,7 +8,6 @@ import { addFeed } from "../utils/feedSlice";
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store.feed);
-  console.log("Feed", feed)
 
   const getFeed = async () => {
     try {
@@ -17,7 +16,6 @@ const Feed = () => {
         { withCredentials: true}
       )
       dispatch(addFeed(resp.data.data))
-      console.log(resp)
     } catch (error) {
       console.error("[getFeed] Error while getFeed", error);
     }

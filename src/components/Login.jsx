@@ -9,7 +9,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 const Login = () => {
 
   const [email, setEmail] = useState("rushi@gmail.com");
-  const [password, setPassword] = useState("rushi@Dev123");
+  const [password, setPassword] = useState("Pass@123");
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(null);
   const dispatch = useDispatch()

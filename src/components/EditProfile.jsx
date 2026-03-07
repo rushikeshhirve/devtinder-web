@@ -96,10 +96,11 @@ const EditProfile = ({ user }) => {
             <div>
               <label className="fieldset-legend w-full text-left">Gender</label>
               <select
-                defaultValue={gender}
+                defaultValue={gender || ""}
                 className="select"
                 onChange={(e) => setGender(e.target.value)}
               >
+                <option value=""disabled>Select gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>

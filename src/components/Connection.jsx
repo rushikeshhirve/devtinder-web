@@ -29,7 +29,7 @@ const Connection = () => {
         </label>
     }
 
-    return (-
+    return (
         <div className="flex flex-col items-center">
             <label>
                 <h1 className="text-3xl font-bold my-10">Connections</h1>

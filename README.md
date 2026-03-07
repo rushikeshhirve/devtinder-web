@@ -5,6 +5,18 @@ Library : React
 Build tool: Vite
 CSS framework : tailwind (Daisy UI : component library)
 
+**TODO Things in this application**
+- In userCard when user hover on the +more then it should show remaining his skills
+- Add Skip for now functionality
+- Add Number of connection in user List
+- In Profile Update, add a feature of add/remove skills
+
+**Fixes needed**
+- Show the * if the field is required.
+- When user accepted the connection reqest then it should reflect in connected without refresh
+
+## Notes ##
+
 React is a JavaScript library (not a framework) used to build user interfaces—especially web apps.
 React only for the view layer (UI)
 React Does not include routing, state management, or backend login by default, for that u need to install external modules like react-router-dom, redux, etc

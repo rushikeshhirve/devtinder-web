@@ -5,13 +5,18 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils/constants';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { SiTruenas } from 'react-icons/si';
 
 const Login = () => {
 
-  const [email, setEmail] = useState("rushi@gmail.com");
-  const [password, setPassword] = useState("Pass@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("")
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(null);
+  const [isLogin, setIsLogin] = useState(true);
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -35,25 +40,70 @@ const Login = () => {
       console.error("[loginHandler] Login failed", error);
       setLoginError(error.response.data.message || "Something went wrong!")
     }
+  }
 
+  const signUpHandler = async () => {
+    try {
+      const response = await axios.post(
+        BASE_URL + "/signup",
+        {
+          firstName,
+          lastName,
+          "emailId": email,
+          password
+        },
+        { withCredentials: true }
+      );
+      dispatch(addUser(response.data.data));
+      setLoginError(null);
+      return navigate("/profile");
+    } catch (error) {
+      console.error("[signUpHandler] sign up failed", error);
+      setLoginError(error.response.data.message || "Something went wrong!")
+    }
   }
 
   return (
     <div className="flex justify-center mt-10">
       <div className="card bg-base-300 w-96 shadow-sm">
-        <div className="card-body items-center text-center">
-          <h2 className="card-title">User Login</h2>
+        <div className="card-body items-start">
+          <h2 className="card-title self-center">{isLogin ? "User Login" : "Sign Up"}</h2>
+          {!isLogin &&
+            <>
+              <label> First Name</label>
+              <input
+                type="text"
+                placeholder="Enter first name"
+                value={firstName}
+                className="input input-bordered w-full max-w-xs mb-4"
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+
+              <label>Last Name</label>
+              <input
+                type="text"
+                placeholder="Enter last name"
+                value={lastName}
+                className="input input-bordered w-full max-w-xs mb-4"
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </>
+          }
+
+          <label>Username</label>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Enter username"
             value={email}
             className="input input-bordered w-full max-w-xs mb-4"
             onChange={(e) => setEmail(e.target.value)}
           />
+
+          <label>Password</label>
           <div className="relative w-full max-w-xs mb-4">
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder="Enter Password"
               value={password}
               className="input input-bordered w-full pr-10"
               onChange={(e) => setPassword(e.target.value)}
@@ -68,9 +118,15 @@ const Login = () => {
             </button>
           </div>
           <p className='text-red-500 my-0'>{loginError}</p>
-          <div className="card-actions">
-            <button className="btn btn-primary" onClick={loginHandler}>Click to login</button>
+          <div className="card-actions self-center">
+            <button className="btn btn-primary" onClick={isLogin ? loginHandler : signUpHandler}>
+              {isLogin ? "Click to login" : "Register here"}
+            </button>
           </div>
+
+          <button className='self-center cursor-pointer' onClick={() => setIsLogin(!isLogin)}>
+            {isLogin ? "New User? Register here!" : "Already User? login here!"}
+          </button>
         </div>
       </div>
     </div>

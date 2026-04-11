@@ -12,6 +12,8 @@ const EditProfile = ({ user }) => {
   const [age, setAge] = useState(user.age);
   const [gender, setGender] = useState(user.gender);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
+  const [skill, setSkill] = useState("");
+  const [skillList, setSkillList] = useState(user.skills);
   const [about, setAbout] = useState(user.about);
   const [error, setError] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -28,7 +30,8 @@ const EditProfile = ({ user }) => {
           age,
           gender,
           photoUrl,
-          about
+          about,
+          skills: skillList
         },
         { withCredentials: true }
       )
@@ -43,6 +46,18 @@ const EditProfile = ({ user }) => {
       setError(error.response.data.message);
     }
   }
+
+  const handleAAddSkill = () => {
+    if (skill === "") return;
+    setSkillList([...skillList, skill]);
+    setSkill("")
+  }
+
+  const removeSkill = (index) => {
+    setSkillList(skillList.filter((_, i) => i != index ))
+  }
+
+  console.log("skills", skillList)
 
   return (
     <div className="flex justify-center">
@@ -100,7 +115,7 @@ const EditProfile = ({ user }) => {
                 className="select"
                 onChange={(e) => setGender(e.target.value)}
               >
-                <option value=""disabled>Select gender</option>
+                <option value="" disabled>Select gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
@@ -116,8 +131,35 @@ const EditProfile = ({ user }) => {
             className="input input-bordered w-full"
             onChange={(e) => setPhotoUrl(e.target.value)}
           />
-          <label className="fieldset-legend w-full text-left">About</label>
 
+          <label className="fieldset-legend w-full text-left">Add Skills</label>
+          <div className="flex w-full gap-2">
+            <input
+              type="text"
+              placeholder="Add skills"
+              value={skill}
+              className="input input-bordered flex-1 w-full"
+              onChange={(e) => setSkill(e.target.value)}
+            />
+            <button className="btn btn-dash btn-info shrink-0" onClick={handleAAddSkill}>
+              Add
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-2 mt-3">
+            {skillList.map((item, index) => (
+              <span  key={index} className="px-3 py-1 rounded-full text-sm flex items-center gap-2">
+                {item}
+                <button
+                  onClick={() => removeSkill(index)}
+                  className="text-blue-700 hover:text-red-500 font-bold"
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+
+          <label className="fieldset-legend w-full text-left">About</label>
           <textarea
             className="textarea w-full resize-y max-h-40"
             placeholder="Enter about yourself"
@@ -133,8 +175,8 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
       </div>
-      <UserCard user={{ firstName, lastName, age, gender, photoUrl, about }} />
-      {showSuccess && <ToastMsg alertType="success" message="User Profile is updated"/>}
+      <UserCard user={{ firstName, lastName, age, gender, photoUrl, about, skills: skillList }} />
+      {showSuccess && <ToastMsg alertType="success" message="User Profile is updated" />}
     </div>
 
   )

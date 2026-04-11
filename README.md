@@ -8,6 +8,12 @@ A modern web-based dating and professional networking platform built with React,
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.16-38B2AC.svg)
 ![Socket.io](https://img.shields.io/badge/Socket.io-4.8.3-010101.svg)
 
+## 🌐 Live Demo
+
+🚀 **[View Live Demo](http://56.228.30.160/)**
+
+Experience DevTinder in action! Try creating a profile, browsing matches, and connecting with others.
+
 ## ✨ Features
 
 - **🔐 User Authentication**: Secure login and signup with form validation

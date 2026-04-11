@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../utils/connectionSlice";
+import { Link } from "react-router-dom"
 
 const Connection = () => {
     const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const Connection = () => {
     if (connections && connections.length === 0) {
         return <label>
             <h1 className="text-3xl font-bold my-10">Connections</h1>
-             <h1 className="text-1xl font-bold my-10">No Connections</h1>
+            <h1 className="text-1xl font-bold my-10">No Connections</h1>
         </label>
     }
 
@@ -44,6 +45,12 @@ const Connection = () => {
                                 {list.gender && list.age && <div>{list.gender + " " + list.age}</div>}
                                 <div className="text-xs font-semibold opacity-60 line-clamp-1">{list.about}</div>
                             </div>
+
+                            <Link to={`/chat/${list._id}`}>
+                                <button className="btn btn-active btn-secondary m-auto">
+                                    Chat
+                                </button>
+                            </Link>
                         </li>
                     )
                 })}
